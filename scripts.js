@@ -1,3 +1,3 @@
-function iniciarJogo() {
-    console.log("Olá")
+function startGame() {
+
 }
