@@ -29,10 +29,12 @@ function addQuestion(question){
         divAnswers.appendChild(button);
         button.addEventListener('click', () => {
             if(question.alternatives[index] === question.answer){
+                button.style.backgroundColor = '#9aeabc';
                 window.alert("Acertou");
                 regenerateQuestion();
                 trueAnswers++;
             }else{
+                button.style.backgroundColor = '#ff9393';
                 window.alert("Você errou");
                 regenerateQuestion();
             }
@@ -88,4 +90,15 @@ async function startGame() {
     const dados = await readQuestions();
     generateQuestions(dados);
 }
-
+/*
+function selectAnswer(e){
+    const selectedBtn = e.target;
+    const isCorrect = selectedBtn.dataset.correct === "true";
+    if(isCorrect){
+        selectedBtn.classList.add("correct");
+    }
+    else{
+        selectedBtn.classList.add("incorrect");
+    }
+}
+*/
