@@ -2,6 +2,7 @@ let startDiv = document.getElementById("startDiv");
 let questionsDiv = document.getElementById("questionsDiv");
 let divQuestion = document.getElementById("questions");
 let divAnswers = document.getElementById("answers");
+let trueOrFalse = document.getElementById("trueOrFalse");
 
 let questionsCounter = 0;
 let trueAnswers = 0;
@@ -19,24 +20,25 @@ function generateNumber(){
 //Mandar id.questao pro localStorage
 
 function addQuestion(question){
+    trueOrFalse.innerText = "";
     questionsCounter++;
     let p = document.createElement('p');
     p.id = 'text'
     question.alternatives.forEach((alternative, index) => {
+        let buttons = [];
         let button = document.createElement('button');
         button.id = 'alternatives'
         button.innerText = question.alternatives[index];
         divAnswers.appendChild(button);
+        buttons += button;
         button.addEventListener('click', () => {
             if(question.alternatives[index] === question.answer){
                 button.style.backgroundColor = '#9aeabc';
-                window.alert("Acertou");
-                regenerateQuestion();
+                trueOrFalse.innerText = "Você acertou!";
                 trueAnswers++;
             }else{
                 button.style.backgroundColor = '#ff9393';
-                window.alert("Você errou");
-                regenerateQuestion();
+                trueOrFalse.innerText = "Você errou!";
             }
             localStorage.setItem("id",() => {
                 const local = localStorage.getItem("id");
