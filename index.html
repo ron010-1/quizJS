@@ -7,15 +7,29 @@
     <link rel="stylesheet" href="styles.css">
     
 </head>
-<body>
+<body style="
+display: flex;
+padding-top: 12%;
+justify-content: center;">
 
-    <section id="startButton">
-        <button onclick="startGame()">Iniciar Quiz</button>
+    <section id="startDiv" 
+    style="display: flex; flex-direction: column; justify-content: center;
+     align-items: center; width: 500px; height: 300px; background-color: antiquewhite;
+     border-radius: 10px; border: 2px solid black; gap: 20px;">
+        <h2>
+            Seja bem-vindo ao quiz do Esporte
+        </h2>
+        <button onclick="startGame()" style="width: 40%; height: 15%; ">Iniciar Quiz</button>
     </section>
     
 
-    <section>
+    <section id="questionsDiv" style="display: none; flex-direction: column; justify-content: center;
+    align-items: center; width: 500px; height: 300px; background-color: antiquewhite;
+    border-radius: 10px; border: 2px solid black;">
         <div id="questions"></div>
+        <div id="answers"></div>
+
+        <button style="display: flex; justify-content: end;"> ⮕</button>
     </section>
 
 
