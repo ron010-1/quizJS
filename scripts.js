@@ -1,4 +1,5 @@
-let startButton = document.getElementById("startButton");
+let startDiv = document.getElementById("startDiv");
+let questionsDiv = document.getElementById("questionsDiv");
 let divQuestion = document.getElementById("questions");
 let divAnswers = document.getElementById("answers");
 
@@ -16,8 +17,10 @@ function generateNumber(){
 
 function addQuestion(question){
     let p = document.createElement('p');
+    p.id = 'text'
     question.alternatives.forEach((alternative, index) => {
         let button = document.createElement('button');
+        button.id = 'alternatives'
         button.innerText = question.alternatives[index];
         divAnswers.appendChild(button);
         button.addEventListener('click', () => {
@@ -50,7 +53,8 @@ function generateQuestions(questions){
 }
 
 async function startGame() {
-    startButton.style.display = "none"; //Apagar botão do HTML.
+    startDiv.style.display = "none"; //Apagar botão do HTML.
+    questionsDiv.style.display = "flex"; //Mostrar perguntas
     console.log("Botão foi pressionado!");
     const dados = await readQuestions();
     generateQuestions(dados);
