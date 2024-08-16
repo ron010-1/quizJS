@@ -38,31 +38,25 @@ function addQuestion(question) {
                 button.style.backgroundColor = '#ff9393';
                 trueOrFalse.innerText = "Você errou!";
             }
-            localStorage.setItem("id", () => {
-                const local = localStorage.getItem("id");
-                if (local !== null) {
-                    localStorage.setItem("id", JSON.stringify([...JSON.parse(local), question.id]))
-                }
-            });
-
         })
     });
     p.innerText = question.text;
     divQuestion.appendChild(p);
-    if (questionsCounter === 2) {
+    if (questionsCounter == 5) {
         questionsDiv.style.display = "none";
         startDiv.style.display = "flex";
+        gameResult(trueAnswers, questionsCounter-1);
         questionsCounter = 0;
         trueAnswers = 0;
         cleanSection();
-        gameResult();
     }
 }
 
-function gameResult(){
+function gameResult(trueAnswers, questionsCounter) {
     let textResult = document.getElementById("gameResult");
-    document.getElementById("startButton").remove();
-    textResult.innerText = "Parabéns! Você acertou " + trueAnswers + " perguntas!";
+    document.getElementById("startButton");
+    startButton.innerHTML = "Finalizar";
+    textResult.innerText = "Parabéns! Você acertou " + trueAnswers + " de " + questionsCounter + " perguntas!";
 }
 
 function generateQuestions(questions) {
@@ -75,7 +69,7 @@ function generateQuestions(questions) {
     }
 }
 
-function cleanSection(){
+function cleanSection() {
     // Seleciona todos os botões com o id 'alternatives' e remove cada um deles
     const buttons = document.querySelectorAll('#alternatives');
     buttons.forEach(button => button.remove()); // Remove cada botão encontrado
@@ -95,21 +89,29 @@ async function regenerateQuestion() {
 }
 
 async function startGame() {
-    startDiv.style.display = "none"; //Apagar botão do HTML.
-    questionsDiv.style.display = "flex"; //Mostrar perguntas
-    console.log("Botão foi pressionado!");
-    const dados = await readQuestions();
-    generateQuestions(dados);
-}
-/*
-function selectAnswer(e){
-    const selectedBtn = e.target;
-    const isCorrect = selectedBtn.dataset.correct === "true";
-    if(isCorrect){
-        selectedBtn.classList.add("correct");
-    }
-    else{
-        selectedBtn.classList.add("incorrect");
+    if (checkDate()) {
+        startDiv.style.display = "none"; //Apagar botão do HTML.
+        questionsDiv.style.display = "flex"; //Mostrar perguntas
+        console.log("Botão foi pressionado!");
+        const dados = await readQuestions();
+        generateQuestions(dados);
     }
 }
-*/
+
+function checkDate() {
+    let currentTime = new Date().getDate();
+    let lastAns = localStorage.getItem("date");
+    if (currentTime == lastAns) {
+        cantAnswer();
+        return 0;
+    } else {
+        localStorage.setItem("date", currentTime);
+        return 1;
+    }
+}
+
+function cantAnswer() {
+    let textResult = document.getElementById("gameResult");
+    document.getElementById("startButton").remove();
+    textResult.innerText = "Você já respondeu o quiz de hoje!";
+}
