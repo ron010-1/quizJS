@@ -49,14 +49,20 @@ function addQuestion(question) {
     });
     p.innerText = question.text;
     divQuestion.appendChild(p);
-    if (questionsCounter === 5) {
+    if (questionsCounter === 2) {
         questionsDiv.style.display = "none";
         startDiv.style.display = "flex";
-        window.alert("Você acertou " + trueAnswers + " perguntas");
         questionsCounter = 0;
         trueAnswers = 0;
         cleanSection();
+        gameResult();
     }
+}
+
+function gameResult(){
+    let textResult = document.getElementById("gameResult");
+    document.getElementById("startButton").remove();
+    textResult.innerText = "Parabéns! Você acertou " + trueAnswers + " perguntas!";
 }
 
 function generateQuestions(questions) {
